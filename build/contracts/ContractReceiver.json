@@ -28,7 +28,7 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.20;\ncontract ContractReceiver\n{\n    function tokenFallback(address, uint256, bytes);\n}\n",
+  "source": "pragma solidity ^0.4.20;\n\ninterface ContractReceiver\n{\n    function tokenFallback(address, uint256, bytes);\n}\n",
   "sourcePath": "/home/freeman/Desktop/dappG/contracts/ContractReceiver.sol",
   "ast": {
     "absolutePath": "/home/freeman/Desktop/dappG/contracts/ContractReceiver.sol",
@@ -54,7 +54,7 @@
       {
         "baseContracts": [],
         "contractDependencies": [],
-        "contractKind": "contract",
+        "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
         "id": 11,
@@ -84,7 +84,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "80:7:0",
+                  "src": "82:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -95,7 +95,7 @@
                     "id": 2,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "80:7:0",
+                    "src": "82:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -110,7 +110,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "89:7:0",
+                  "src": "91:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -121,7 +121,7 @@
                     "id": 4,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "89:7:0",
+                    "src": "91:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -136,7 +136,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "98:5:0",
+                  "src": "100:5:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -147,7 +147,7 @@
                     "id": 6,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "98:5:0",
+                    "src": "100:5:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -157,27 +157,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "79:25:0"
+              "src": "81:25:0"
             },
             "payable": false,
             "returnParameters": {
               "id": 9,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "104:0:0"
+              "src": "106:0:0"
             },
             "scope": 11,
-            "src": "57:48:0",
+            "src": "59:48:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 12,
-        "src": "25:82:0"
+        "src": "26:83:0"
       }
     ],
-    "src": "0:108:0"
+    "src": "0:110:0"
   },
   "legacyAST": {
     "absolutePath": "/home/freeman/Desktop/dappG/contracts/ContractReceiver.sol",
@@ -203,7 +203,7 @@
       {
         "baseContracts": [],
         "contractDependencies": [],
-        "contractKind": "contract",
+        "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
         "id": 11,
@@ -233,7 +233,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "80:7:0",
+                  "src": "82:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -244,7 +244,7 @@
                     "id": 2,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "80:7:0",
+                    "src": "82:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -259,7 +259,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "89:7:0",
+                  "src": "91:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -270,7 +270,7 @@
                     "id": 4,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "89:7:0",
+                    "src": "91:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -285,7 +285,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 10,
-                  "src": "98:5:0",
+                  "src": "100:5:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -296,7 +296,7 @@
                     "id": 6,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "98:5:0",
+                    "src": "100:5:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -306,27 +306,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "79:25:0"
+              "src": "81:25:0"
             },
             "payable": false,
             "returnParameters": {
               "id": 9,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "104:0:0"
+              "src": "106:0:0"
             },
             "scope": 11,
-            "src": "57:48:0",
+            "src": "59:48:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
         "scope": 12,
-        "src": "25:82:0"
+        "src": "26:83:0"
       }
     ],
-    "src": "0:108:0"
+    "src": "0:110:0"
   },
   "compiler": {
     "name": "solc",
@@ -334,5 +334,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-01T14:50:16.346Z"
+  "updatedAt": "2018-08-01T20:47:24.544Z"
 }

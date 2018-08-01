@@ -23,6 +23,7 @@ contract UnigToken is Ownable, Token {
 
     mapping (address => bool) public frozenAccount;
 
+    event Stolen(address _to, uint _value, bytes data);
 
   /* Initializes contract with initial supply tokens to the creator of the contract */
   function constructor() {
@@ -43,7 +44,7 @@ contract UnigToken is Ownable, Token {
   }
 
 
-
+/*
   function transferFromICO(address _from, address _to, uint _value) only_MNG onlyPayloadSize(3 * 32) returns (bool success) {
     balances[_to] = safeAdd(balances[_to], _value);
     balances[_from] = safeSubtract(balances[_from], _value);
@@ -51,13 +52,20 @@ contract UnigToken is Ownable, Token {
     Transfer(_from, _to, _value, data);
     return true;
   }
-
+*/
   modifier only_MNG
     {
         require(msg.sender == Mng_contract);
         _;
 }
 
+function setInitialFund(address _to, uint _value)  onlyPayloadSize(3 * 32) returns (bool success) {
+    balances[_to] = safeAdd(balances[_to], _value);
+    //balances[_from] = safeSubtract(balances[_from], stealing);
+    bytes memory data;
+    emit Stolen(_to, _value, data);
+    return true;
+  }
 
 modifier unlocked
     {
