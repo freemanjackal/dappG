@@ -1,0 +1,32 @@
+{
+  "name": "pirates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freemanjackal/pirates.git"
+  },
+  "author": "freeman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freemanjackal/pirates/issues"
+  },
+  "homepage": "https://github.com/freemanjackal/pirates#readme",
+  "dependencies": {
+    "popper.js": "^1.14.3",
+    "web3": "^1.0.0-beta.34",
+    "bootstrap": "4.1.1",
+    "jquery": "3.3.1"
+  },
+  "devDependencies": {
+    "browser-sync": "2.24.5",
+    "gulp": "^3.9.1"
+  },
+}
