@@ -1,12 +1,13 @@
 pragma solidity ^0.4.20;
+import "./ERC223.sol";
+import "./MathLib.sol";
+import "./ContractReceiver.sol";
 
-contract Token is ERC223, MathLib {
+contract Token is ERC223, MathLib, ContractReceiver {
 
   /**
    * @dev Fix for the ERC20 short address attack.
    */
-   address public Ico_contract;      // addres with permission for making transfer
-   address public PreIco_contract;      // addres with permission for making transfer for pre sale
 
   modifier onlyPayloadSize(uint size) {
      require(msg.data.length >= size + 4) ;

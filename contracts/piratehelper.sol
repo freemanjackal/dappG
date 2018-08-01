@@ -24,7 +24,7 @@ contract PirateHelper is PirateFeeding {
     pirates[_pirateId].level++;
   }
 
-  function changeName(uint _pirateId, string _newName) external aboveLevel(2, _pirateId) onlyOwnerOf(_pirateId) {
+  function changeName(uint _pirateId, string _newName) external aboveLevel(10, _pirateId) onlyOwnerOf(_pirateId) {
     pirates[_pirateId].name = _newName;
   }
 

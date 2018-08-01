@@ -1,6 +1,6 @@
 pragma solidity ^0.4.20;
-
-contract Pausable is Owned{
+import "./ownable.sol";
+contract Pausable is Ownable{
   event Pause();
   event Unpause();
 
@@ -28,7 +28,7 @@ contract Pausable is Owned{
    */
   function pause() onlyOwner whenNotPaused returns (bool) {
     paused = true;
-    Pause();
+    emit Pause();
     return true;
   }
 
@@ -37,7 +37,7 @@ contract Pausable is Owned{
    */
   function unpause() onlyOwner whenPaused returns (bool) {
     paused = false;
-    Unpause();
+    emit Unpause();
     return true;
   }
 

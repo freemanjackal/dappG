@@ -2,7 +2,6 @@ pragma solidity ^0.4.20;
 
 import "./piratehelper.sol";
 
-//contract PirateAttack is PirateHelper {
 contract PirateAttack is PirateHelper {
   uint randNonce = 0;
   uint attackVictoryProbability = 70;
@@ -21,16 +20,16 @@ contract PirateAttack is PirateHelper {
       myPirate.winCount++;
       myPirate.level++;
       enemyPirate.lossCount++;
-      _triggerCooldown(myPirate);
+     // _triggerCooldown(myPirate);
       emit attackResult(_pirateId, 1);
-      //stealPirate(_pirateId, _targetId, "win");
+      stealPirate(_pirateId, _targetId, "win");
     } else {
       myPirate.lossCount++;
       enemyPirate.winCount++;
-      _triggerCooldown(myPirate);
+     // _triggerCooldown(myPirate);
       emit attackResult(_pirateId, 0);
       //if you lose when you attack you wont be stealed too much like when youre under atteack
-      //stealPirate(_targetId, _pirateId, "lose");
+      stealPirate(_targetId, _pirateId, "lose");
     }
 
   }

@@ -18,7 +18,6 @@ library SafeMath {
     assert(c / a == b);
     return c;
   }
-
   /**
   * @dev Integer division of two numbers, truncating the quotient.
   */

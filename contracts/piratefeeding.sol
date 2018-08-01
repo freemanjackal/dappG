@@ -38,20 +38,20 @@ contract PirateFeeding is PirateFactory {
 //obviuosly without any real effect so it could be designed another fungible tokens to be pirates pets
 //that could be kidnaped and ask a ransom for them
 //it could then  been designed a token for the game to steal from pirates and to pay ransoms
-  function stealPirate(uint _pirateId, uint _pirateIdEnemy, string typeAttack) internal onlyOwnerOf(_pirateId) {
+  function stealPirate(uint _pirateId, uint _pirateIdEnemy, string typeAttack) internal {
     Pirate storage myPirate = pirates[_pirateId];
     require(_isReady(myPirate));
     
-    
+    uni.stealFundsPercent(pirateToOwner[_pirateId],pirateToOwner[_pirateIdEnemy],2);
     /*if (keccak256(_species) == keccak256("attack")) {
       
     }*/
     _triggerCooldown(myPirate);
   }
 
-  function _kiddnapPet(uint _pirateId, uint _kittyId) internal {
+  function _kiddnapPet(uint _pirateId, uint _petId) internal {
     uint petDna;
-    (,,,,,petDna) = petContract.kidnap(_kittyId);
+    (,,,,,petDna) = petContract.kidnap(_petId);
   }
 }
 

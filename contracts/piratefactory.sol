@@ -2,6 +2,8 @@ pragma solidity ^0.4.20;
 
 import "./ownable.sol";
 import "./safemath.sol";
+import "./UnigToken.sol";
+import "./weapon.sol";
 
 contract PirateFactory is Ownable {
 
@@ -12,6 +14,17 @@ contract PirateFactory is Ownable {
   uint dnaDigits = 16;
   uint dnaModulus = 10 ** dnaDigits;
   uint cooldownTime = 1 days;
+  ////////////////////////////////////////////weapon//////////////////////
+   Weapon wp;
+   function setWeapon(address _wp) onlyOwner {
+    wp = Weapon(_wp);
+   }
+  /////////////////////////////////////money///////////////////////////////////
+  UnigToken uni;
+
+  function setToken(address _tk) onlyOwner {
+    uni = UnigToken(_tk);
+  }
 
   struct Pirate {
     string name;
