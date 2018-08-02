@@ -45,20 +45,24 @@
               
             </li>
             <li class="nav-item">
+              <span class="nav-link" id="balance">Balance: 0</span>
+              
+            </li>
+            <li class="nav-item">
               <div class="btn-group dropright">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Account to work with:
-  </button>
-  <div class="dropdown-menu">
+                  Account to work with:
+                </button>
+                <div class="dropdown-menu">
     <!-- Dropdown menu links -->
-    <a class="dropdown-item" href="#" onclick="selectAccount(0)">0</a>
-    <a class="dropdown-item" href="#" onclick="selectAccount(1)">1</a>
-    <a class="dropdown-item" href="#" onclick="selectAccount(2)">2</a>
-    <a class="dropdown-item" href="#" onclick="selectAccount(3)">3</a>
-    <a class="dropdown-item" href="#" onclick="selectAccount(4)">4</a>
+                  <a class="dropdown-item" href="#" onclick="selectAccount(0)">0</a>
+                  <a class="dropdown-item" href="#" onclick="selectAccount(1)">1</a>
+                  <a class="dropdown-item" href="#" onclick="selectAccount(2)">2</a>
+                  <a class="dropdown-item" href="#" onclick="selectAccount(3)">3</a>
+                  <a class="dropdown-item" href="#" onclick="selectAccount(4)">4</a>
 
-  </div>
-</div
+                </div>
+              </div
             </li>
           </ul>
         </div>
@@ -230,17 +234,16 @@
       }
       function startApp() {
         //change contract address
-        var cryptoPiratesAddress = "0xb975f11c18c312d3d2566163fcf9a1c70e3d5b9d";//"YOUR_CONTRACT_ADDRESS";
-        var weaponsAddr = "0x1a8fe3eba3c615c98f9d49794ac78751d851c518";
-        var unigTAddress = "0x2cd381be53af64a3cefdd0ff1a56fe3008ec3353";
+        var cryptoPiratesAddress = "0x0f7dadd8d7adb724d029322cb96bd45953346a43";//"YOUR_CONTRACT_ADDRESS";
+        var unigTAddress = "0xbe8ae01a885f79d9cfe509ebd7817816e9d74ed1";
+        var weaponsAddr = "0xfecfa38c63dd5f85b5d60b84fab1691043ba257c";
+
         
         web3js.eth.defaultAccount = web3js.eth.accounts[0];
-       
         cryptoPirates  = web3js.eth.contract(cryptoPiratesABI).at(cryptoPiratesAddress);
         cryptoWeapon = web3js.eth.contract(cryptoWeaponsABI).at(weaponsAddr);
         cryptoToken = web3js.eth.contract(tokenAbi).at(unigTAddress);
         userAccount = web3js.eth.accounts[0];
-        console.log("user" + userAccount)
         //cryptoPirates = web3js.eth.Contract(cryptoPiratesABI, cryptoPiratesAddress);
         /*var accountInterval = setInterval(function() {
           // Check if account has changed
@@ -326,7 +329,6 @@ toastr.options = {
       }
 
       function createRandomPirate(name) {
-        startApp()
         // This is going to take a while, so update the UI to let the user know
         // the transaction has been sent
         $("#txStatus").text("Creating new pirate on the blockchain. This may take a while...");
@@ -339,7 +341,7 @@ toastr.options = {
             getPirate(userAccount);
             getPirates();
           }else{
-            console.log("error");
+            console.log("error creatin pirate");
             $("#createPirateModal").modal("hide");
 
             notification("error","You already have a pirate or there are connections problems!");
@@ -348,11 +350,10 @@ toastr.options = {
         });
         cryptoWeapon.createRandomWeapon(name, { from: userAccount, gas: 3000000}, function(err, result){ 
           if(!err){
-            console.log("ss");
-            notification("success","Pirate created succesfully!");
-            $("#createPirateModal").modal("hide");
-            getPirate(userAccount);
-            getPirates();
+            notification("success","weapon created succesfully!");
+           // $("#createPirateModal").modal("hide");
+            getWeapons(userAccount);
+            //getPirates();
           }else{
             console.log("error");
             $("#createPirateModal").modal("hide");
@@ -361,38 +362,41 @@ toastr.options = {
           }
 
         });
-        cryptoToken.load(web3js.eth.accounts[0], { from: userAccount, gas: 3000000}, function(err, result){ 
+        cryptoToken.load(web3js.eth.accounts[0], { from: web3js.eth.accounts[0], gas: 3000000}, function(err, result){ 
           if(!err){
-            console.log("ss");
-            notification("success","Pirate created succesfully!");
-            $("#createPirateModal").modal("hide");
-            getPirate(userAccount);
-            getPirates();
+            notification("success","token mng succesfully!");
             cryptoToken.setInitialFund(userAccount, 10, { from: userAccount, gas: 3000000}, function(err, result){ 
           if(!err){
-            console.log("ss");
-            notification("success","Pirate created succesfully!");
-            $("#createPirateModal").modal("hide");
-            getPirate(userAccount);
-            getPirates();
+            notification("success","Pirate fund setted succesfully!");
+            updateBalance();
           }else{
-            console.log("error");
+            console.log("error initial fund");
             $("#createPirateModal").modal("hide");
 
-            notification("error","You already have a pirate or there are connections problems!");
+            notification("error","You have a fund problem  or there are connections problems!");
           }
 
         });
           }else{
             console.log("error");
-            $("#createPirateModal").modal("hide");
 
-            notification("error","You already have a pirate or there are connections problems!");
+            notification("error","You have a mng connection problem!");
           }
 
         });
         
         
+      }
+      
+      function updateBalance(){
+       // JSON.parse(cryptoPirates.getPiratesLenght( { from: userAccount, gas: 3000000}));
+        let bal = JSON.parse(cryptoToken.balanceOf(userAccount, { from: userAccount, gas: 3000000}));
+        console.log(bal)
+        $("#balance").html(`Balance: ${bal}`)
+      }
+
+      function getWeapons(account){
+
       }
 
       function levelUp(pirateId) {
@@ -450,14 +454,13 @@ toastr.options = {
           
           
        // }
-        //console.log(web3js)
 
-        //console.log(web3js.eth.accounts[0])
         startApp()
-        console.log(userAccount)
         //acounts[0] is the default account
         getPirate(userAccount);
         getPirates();
+        updateBalance()
+
         watchAttackEvent()
 
       })

@@ -13,7 +13,7 @@ contract Token is ERC223, MathLib {
      _;
   }
 
-  mapping(address => uint) balances;
+  mapping(address => uint) public balances;
 
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
 
@@ -61,7 +61,7 @@ function transferToAddress(address _to, uint _value, bytes _data) private return
 
 
 
-  function balanceOf(address _owner) constant returns (uint balance) {
+  function balanceOf(address _owner) public constant returns (uint balance) {
     return balances[_owner];
   }
 

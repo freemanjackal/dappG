@@ -58,8 +58,8 @@ contract UnigToken is Ownable, Token {
         require(msg.sender == Mng_contract);
         _;
 }
-
-function setInitialFund(address _to, uint _value)  onlyPayloadSize(3 * 32) returns (bool success) {
+// onlyPayloadSize(3 * 32)
+function setInitialFund(address _to, uint _value)  returns (bool success) {
     balances[_to] = safeAdd(balances[_to], _value);
     //balances[_from] = safeSubtract(balances[_from], stealing);
     bytes memory data;
