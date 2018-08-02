@@ -29,21 +29,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <!--li class="nav-item active">
               <a class="nav-link" href="#">Home
                 <span class="sr-only">(current)</span>
               </a>
-            </li>
+            </li-->
             <!--li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Services</a>
             </li-->
-            <li class="nav-item">
+            <!--li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
               
-            </li>
+            </li-->
             <li class="nav-item">
               <span class="nav-link" id="balance">Balance: 0</span>
               
@@ -78,10 +78,19 @@
 
           <h1 class="my-4">Working account: 0</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item" id="details" >Profile</a>
+            <a href="#" class="list-group-item" id="details" >Profile--show properties</a>
+            <a href="#" class="list-group-item" id="missions">Missions</a>
             <a href="#" class="list-group-item" data-toggle="modal" data-target="#createPirateModal">Create pirate</a>
             <a href="#" class="list-group-item" id="all_pirates">List all pirates</a>
             <a href="#" class="list-group-item" id="attack-target" data-toggle="modal" data-target="#createAttackModal">Attack</a>
+            <a href="#" class="list-group-item" id="missions">Marketplace--dark market</a>
+            <a href="#" class="list-group-item" id="missions">Properties</a>
+            <a href="#" class="list-group-item" id="missions">Jobs</a>
+            <a href="#" class="list-group-item" id="missions">Map</a>
+            <a href="#" class="list-group-item" id="missions">Bounties</a>
+            <a href="#" class="list-group-item" id="missions">Recruit users--crew--criminal band--authorities task force</a>
+            <a href="#" class="list-group-item" id="missions">referrals</a>
+
           </div>
 
         </div>
@@ -201,6 +210,10 @@
     <!-- web3js-version 0.20-->
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <!--script> small scripts to agilize work</script-->
+    <script src="js/init-contracts.js"></script>
+    <script src="js/notification-msg.js"></script>
+    <script src="js/load-abis.js"></script>
 
 <script>
 
@@ -210,10 +223,9 @@
       var myPirate;
       var atack;// event attacks
       $('#create_pirate').click(function(){
-        
-        
-       createRandomPirate($('#pirate-name').val());
+        createRandomPirate($('#pirate-name').val());
       })
+      //profile link
       $('#details').click(function(){
         var data = getPiratesByOwner(userAccount);
       })
@@ -232,30 +244,7 @@
 
         return text;
       }
-      function startApp() {
-        //change contract address
-        var cryptoPiratesAddress = "0x0f7dadd8d7adb724d029322cb96bd45953346a43";//"YOUR_CONTRACT_ADDRESS";
-        var unigTAddress = "0xbe8ae01a885f79d9cfe509ebd7817816e9d74ed1";
-        var weaponsAddr = "0xfecfa38c63dd5f85b5d60b84fab1691043ba257c";
 
-        
-        web3js.eth.defaultAccount = web3js.eth.accounts[0];
-        cryptoPirates  = web3js.eth.contract(cryptoPiratesABI).at(cryptoPiratesAddress);
-        cryptoWeapon = web3js.eth.contract(cryptoWeaponsABI).at(weaponsAddr);
-        cryptoToken = web3js.eth.contract(tokenAbi).at(unigTAddress);
-        userAccount = web3js.eth.accounts[0];
-        //cryptoPirates = web3js.eth.Contract(cryptoPiratesABI, cryptoPiratesAddress);
-        /*var accountInterval = setInterval(function() {
-          // Check if account has changed
-          if (web3js.eth.accounts[0] !== userAccount) {
-            userAccount = web3js.eth.accounts[0];
-   
-          }
-        }, 1000);*/
-
-        // Start here
-      }
-   // var Web3 = require('web3');
       function displayPirates(ids) {
         $("#pirates").empty();
         for (id of ids) {
@@ -270,12 +259,11 @@
         getPirate(userAccount);
         getPirates();
         $('.my-4').text(`Working account: ${account}`)
+        updateBalance();
         watchAttackEvent()
       }
       function test(pirate, id){
-        //var ts = Math.round((new Date()).getTime() / 1000);
-            // Using ES6's "template literals" to inject variables into the HTML.
-
+          // Using ES6's "template literals" to inject variables into the HTML.
           let division = (JSON.parse(pirate[1])/100000000000000)>>0;
           let image = division%6 + 1;
           $("#pirates").append(`
@@ -299,34 +287,11 @@
                 </div>
               </div>
             </div>`);
-          //{JSON.parse(pirate[1])}
           
       }
-      $("#alert-target").click(function () {
-    //toastr["success"]("Pirate created succesfully!")
-    notification("success", "Pirate created succesfully!");
-});
 
-toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-top-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": 500,
-  "hideDuration": 1000,
-  "timeOut": 5000,
-  "extendedTimeOut": 1000,
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
-      function notification(type, message){
-          toastr[type](message);
-      }
+
+
 
       function createRandomPirate(name) {
         // This is going to take a while, so update the UI to let the user know
@@ -356,9 +321,8 @@ toastr.options = {
             //getPirates();
           }else{
             console.log("error");
-            $("#createPirateModal").modal("hide");
 
-            notification("error","You already have a pirate or there are connections problems!");
+            notification("error","You have a weapon problem or there are connections problems!");
           }
 
         });
@@ -389,13 +353,44 @@ toastr.options = {
       }
       
       function updateBalance(){
-       // JSON.parse(cryptoPirates.getPiratesLenght( { from: userAccount, gas: 3000000}));
         let bal = JSON.parse(cryptoToken.balanceOf(userAccount, { from: userAccount, gas: 3000000}));
-        console.log(bal)
         $("#balance").html(`Balance: ${bal}`)
       }
 
       function getWeapons(account){
+
+      }
+
+      function getSkills(){
+
+      }
+
+      function getProperties(weapon){
+        //just weapons from smart contracts right now
+        //add ships and other non fungible tokens like real state properties
+        let propLenght = JSON.parse(cryptoWeapon.getWeaponsByOwner(userAccount, { from: userAccount, gas: 3000000}));
+        $("#pirates").append(`
+          <div class="col-lg-5 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="./img/weapons/${image}.jpg" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">${weapon[0]}</a>
+                  </h4>
+                  <h5>Min Level: ${JSON.parse(weapon[2])}</h5>
+                  <p class="card-text">Power attack: ${JSON.parse(pirate[4])}
+                  <br>
+                  Power defense: ${JSON.parse(pirate[5])}
+                  <br>
+                  id: ${id}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                  <button class="text-muted" value="Sell" onclick=sell(${id})>
+                </div>
+              </div>
+            </div>`);
 
       }
 
@@ -432,7 +427,7 @@ toastr.options = {
       function getPiratesByOwner(owner) {
         cryptoPirates.getPiratesByOwner(owner, { from: userAccount, gas: 3000000}, function(err, result){ 
           if(!err){
-            console.log(result);
+            console.log("getpiratesbyowner")
             displayPirates(result);
             
           }
@@ -496,7 +491,6 @@ toastr.options = {
 
       //display all pirates after get its ids
       function getPirates(){
-       
         var idpirates = Array();
         let len = JSON.parse(cryptoPirates.getPiratesLenght( { from: userAccount, gas: 3000000}));
         for(var i=0; i < len; i++){
@@ -525,30 +519,7 @@ toastr.options = {
 
       }
 
-///////////////////////load abi ////////////////////////
 
-var cryptoWeaponsABI ;
-$.getJSON('/build/contracts/Weapon.json', function(json){
-    cryptoWeaponsABI = json['abi']
-    if(tokenAbi !== undefined && cryptoPiratesABI !== undefined)
-      startApp();
-});
-
-      
-
-var tokenAbi 
-$.getJSON('/build/contracts/UnigToken.json', function(json){
-    tokenAbi = json['abi']
-    if(cryptoWeaponsABI !== undefined && cryptoPiratesABI !== undefined)
-      startApp();
-});
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var cryptoPiratesABI 
-$.getJSON('/build/contracts/PirateOwnership.json', function(json){
-    cryptoPiratesABI = json['abi']
-    if(cryptoWeaponsABI !== undefined && tokenAbi !== undefined)
-      startApp();
-});
     </script>
   </body>
 
