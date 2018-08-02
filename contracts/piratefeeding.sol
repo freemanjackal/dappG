@@ -40,13 +40,13 @@ contract PirateFeeding is PirateFactory {
 //it could then  been designed a token for the game to steal from pirates and to pay ransoms
   function stealPirate(uint _pirateId, uint _pirateIdEnemy, string typeAttack) internal {
     Pirate storage myPirate = pirates[_pirateId];
-    require(_isReady(myPirate));
+  //  require(_isReady(myPirate));
     
     uni.stealFundsPercent(pirateToOwner[_pirateId],pirateToOwner[_pirateIdEnemy],2);
     /*if (keccak256(_species) == keccak256("attack")) {
       
     }*/
-    _triggerCooldown(myPirate);
+  //  _triggerCooldown(myPirate);
   }
 
   function _kiddnapPet(uint _pirateId, uint _petId) internal {

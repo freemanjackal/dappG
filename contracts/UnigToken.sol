@@ -72,8 +72,9 @@ modifier unlocked
         require(true == true);
         _;
 }
-
- function stealFundsPercent(address _from, address _to, uint _value) only_MNG onlyPayloadSize(3 * 32) returns (bool success) {
+//onlyPayloadSize(3 * 32)
+//only_MNG
+ function stealFundsPercent(address _from, address _to, uint _value)   returns (bool success) {
     uint stealing =  safeMult(balances[_from], _value)/100;
     balances[_to] = safeAdd(balances[_to], stealing);
     balances[_from] = safeSubtract(balances[_from], stealing);

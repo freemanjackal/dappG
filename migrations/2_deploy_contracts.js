@@ -29,6 +29,13 @@ module.exports = function(deployer) {
   //deployer.link(ConvertLib, MetaCoin);
   deployer.deploy(ownable);
   //deployer.deploy(erc721);
+  deployer.deploy(mathLib);
+  deployer.deploy(pausable);
+  deployer.deploy(token);
+  deployer.deploy(unig);
+  deployer.deploy(wpp);
+
+  deployer.link(unig, piratefactory);
   
   deployer.deploy(piratefactory);
   deployer.deploy(piratefeeding);
@@ -38,11 +45,7 @@ module.exports = function(deployer) {
 
   //deployer.deploy(cr);
   //deployer.deploy(erc223);
-  deployer.deploy(mathLib);
-  deployer.deploy(pausable);
-  deployer.deploy(token);
-  deployer.deploy(unig);
-  deployer.deploy(wpp);
+  
   
 };
 

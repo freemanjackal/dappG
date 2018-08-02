@@ -22,6 +22,10 @@ contract PirateFactory is Ownable {
   /////////////////////////////////////money///////////////////////////////////
   UnigToken uni;
 
+ /* constructor(address unig) public{
+    uni = UnigToken(unig);
+  }
+*/
   function setToken(address _tk) onlyOwner {
     uni = UnigToken(_tk);
   }

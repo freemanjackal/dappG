@@ -1,6 +1,7 @@
 pragma solidity ^0.4.20;
 
 import "./pirateattack.sol";
+import "./piratefactory.sol";
 //import "./erc721.sol";
 import "./safemath.sol";
 
@@ -11,6 +12,8 @@ contract PirateOwnership is PirateAttack {
   event Approval(address indexed _owner, address indexed _approved, uint256 _tokenId);
 
   mapping (uint => address) pirateApprovals;
+
+
 //delete view
   function balanceOf(address _owner) public view returns (uint256 _balance) {
     return ownerPirateCount[_owner];

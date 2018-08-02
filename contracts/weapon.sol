@@ -1,4 +1,5 @@
 pragma solidity ^0.4.20;
+pragma experimental ABIEncoderV2;
 
 import "./erc721.sol";
 import "./safemath.sol";
@@ -98,6 +99,7 @@ contract Weapon is ERC721 {
         counter++;
       }
     }
+
     return result;
   }
 }

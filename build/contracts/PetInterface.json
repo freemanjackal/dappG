@@ -45,23 +45,23 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.20;\n\nimport \"./piratefactory.sol\";\n\ncontract PetInterface {\n  //delete view\n  function kidnap(uint256 _id) external view returns (\n    bool isReady,\n    uint256 cooldownIndex,\n    uint256 nextActionAt,\n    uint256 birthTime,\n    uint256 generation,\n    uint256 genes\n  );\n}\n\ncontract PirateFeeding is PirateFactory {\n\n  PetInterface petContract;\n\n  modifier onlyOwnerOf(uint _pirateId) {\n    require(msg.sender == pirateToOwner[_pirateId]);\n    _;\n  }\n\n  function setPetContractAddress(address _address) external onlyOwner {\n    petContract = PetInterface(_address);\n  }\n\n  function _triggerCooldown(Pirate storage _pirate) internal {\n    _pirate.readyTime = uint32(now + cooldownTime);\n  }\n\n  function _isReady(Pirate storage _pirate) internal view returns (bool) {\n      return (_pirate.readyTime <= now);\n  }\n//it would be great to set a function to kidnap pirate's pets---kidnap kitties would be a great stealPirate\n//obviuosly without any real effect so it could be designed another fungible tokens to be pirates pets\n//that could be kidnaped and ask a ransom for them\n//it could then  been designed a token for the game to steal from pirates and to pay ransoms\n  function stealPirate(uint _pirateId, uint _pirateIdEnemy, string typeAttack) internal {\n    Pirate storage myPirate = pirates[_pirateId];\n    require(_isReady(myPirate));\n    \n    uni.stealFundsPercent(pirateToOwner[_pirateId],pirateToOwner[_pirateIdEnemy],2);\n    /*if (keccak256(_species) == keccak256(\"attack\")) {\n      \n    }*/\n    _triggerCooldown(myPirate);\n  }\n\n  function _kiddnapPet(uint _pirateId, uint _petId) internal {\n    uint petDna;\n    (,,,,,petDna) = petContract.kidnap(_petId);\n  }\n}\n\n",
+  "source": "pragma solidity ^0.4.20;\n\nimport \"./piratefactory.sol\";\n\ncontract PetInterface {\n  //delete view\n  function kidnap(uint256 _id) external view returns (\n    bool isReady,\n    uint256 cooldownIndex,\n    uint256 nextActionAt,\n    uint256 birthTime,\n    uint256 generation,\n    uint256 genes\n  );\n}\n\ncontract PirateFeeding is PirateFactory {\n\n  PetInterface petContract;\n\n  modifier onlyOwnerOf(uint _pirateId) {\n    require(msg.sender == pirateToOwner[_pirateId]);\n    _;\n  }\n\n  function setPetContractAddress(address _address) external onlyOwner {\n    petContract = PetInterface(_address);\n  }\n\n  function _triggerCooldown(Pirate storage _pirate) internal {\n    _pirate.readyTime = uint32(now + cooldownTime);\n  }\n\n  function _isReady(Pirate storage _pirate) internal view returns (bool) {\n      return (_pirate.readyTime <= now);\n  }\n//it would be great to set a function to kidnap pirate's pets---kidnap kitties would be a great stealPirate\n//obviuosly without any real effect so it could be designed another fungible tokens to be pirates pets\n//that could be kidnaped and ask a ransom for them\n//it could then  been designed a token for the game to steal from pirates and to pay ransoms\n  function stealPirate(uint _pirateId, uint _pirateIdEnemy, string typeAttack) internal {\n    Pirate storage myPirate = pirates[_pirateId];\n  //  require(_isReady(myPirate));\n    \n    uni.stealFundsPercent(pirateToOwner[_pirateId],pirateToOwner[_pirateIdEnemy],2);\n    /*if (keccak256(_species) == keccak256(\"attack\")) {\n      \n    }*/\n  //  _triggerCooldown(myPirate);\n  }\n\n  function _kiddnapPet(uint _pirateId, uint _petId) internal {\n    uint petDna;\n    (,,,,,petDna) = petContract.kidnap(_petId);\n  }\n}\n\n",
   "sourcePath": "/home/freeman/Desktop/dappG/contracts/piratefeeding.sol",
   "ast": {
     "absolutePath": "/home/freeman/Desktop/dappG/contracts/piratefeeding.sol",
     "exportedSymbols": {
       "PetInterface": [
-        1058
+        1051
       ],
       "PirateFeeding": [
-        1179
+        1162
       ]
     },
-    "id": 1180,
+    "id": 1163,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1039,
+        "id": 1032,
         "literals": [
           "solidity",
           "^",
@@ -74,10 +74,10 @@
       {
         "absolutePath": "/home/freeman/Desktop/dappG/contracts/piratefactory.sol",
         "file": "./piratefactory.sol",
-        "id": 1040,
+        "id": 1033,
         "nodeType": "ImportDirective",
-        "scope": 1180,
-        "sourceUnit": 1038,
+        "scope": 1163,
+        "sourceUnit": 1031,
         "src": "26:29:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -88,9 +88,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1058,
+        "id": 1051,
         "linearizedBaseContracts": [
-          1058
+          1051
         ],
         "name": "PetInterface",
         "nodeType": "ContractDefinition",
@@ -98,7 +98,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1057,
+            "id": 1050,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -106,15 +106,15 @@
             "name": "kidnap",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1043,
+              "id": 1036,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1042,
+                  "id": 1035,
                   "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "115:11:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -123,7 +123,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1041,
+                    "id": 1034,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "115:7:9",
@@ -140,15 +140,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1056,
+              "id": 1049,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1045,
+                  "id": 1038,
                   "name": "isReady",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "156:12:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -157,7 +157,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 1044,
+                    "id": 1037,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "156:4:9",
@@ -171,10 +171,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1047,
+                  "id": 1040,
                   "name": "cooldownIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "174:21:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -183,7 +183,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1046,
+                    "id": 1039,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:9",
@@ -197,10 +197,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1049,
+                  "id": 1042,
                   "name": "nextActionAt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "201:20:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -209,7 +209,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1048,
+                    "id": 1041,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:9",
@@ -223,10 +223,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1051,
+                  "id": 1044,
                   "name": "birthTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "227:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -235,7 +235,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1050,
+                    "id": 1043,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "227:7:9",
@@ -249,10 +249,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1053,
+                  "id": 1046,
                   "name": "generation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "250:18:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -261,7 +261,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1052,
+                    "id": 1045,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:9",
@@ -275,10 +275,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1055,
+                  "id": 1048,
                   "name": "genes",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "274:13:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -287,7 +287,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1054,
+                    "id": 1047,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "274:7:9",
@@ -302,14 +302,14 @@
               ],
               "src": "150:141:9"
             },
-            "scope": 1058,
+            "scope": 1051,
             "src": "99:193:9",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1180,
+        "scope": 1163,
         "src": "57:237:9"
       },
       {
@@ -318,59 +318,59 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1059,
+              "id": 1052,
               "name": "PirateFactory",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1037,
+              "referencedDeclaration": 1030,
               "src": "322:13:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PirateFactory_$1037",
+                "typeIdentifier": "t_contract$_PirateFactory_$1030",
                 "typeString": "contract PirateFactory"
               }
             },
-            "id": 1060,
+            "id": 1053,
             "nodeType": "InheritanceSpecifier",
             "src": "322:13:9"
           }
         ],
         "contractDependencies": [
-          718,
-          1037
+          711,
+          1030
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1179,
+        "id": 1162,
         "linearizedBaseContracts": [
-          1179,
-          1037,
-          718
+          1162,
+          1030,
+          711
         ],
         "name": "PirateFeeding",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1062,
+            "id": 1055,
             "name": "petContract",
             "nodeType": "VariableDeclaration",
-            "scope": 1179,
+            "scope": 1162,
             "src": "341:24:9",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_PetInterface_$1058",
+              "typeIdentifier": "t_contract$_PetInterface_$1051",
               "typeString": "contract PetInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 1061,
+              "id": 1054,
               "name": "PetInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1058,
+              "referencedDeclaration": 1051,
               "src": "341:12:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PetInterface_$1058",
+                "typeIdentifier": "t_contract$_PetInterface_$1051",
                 "typeString": "contract PetInterface"
               }
             },
@@ -379,7 +379,7 @@
           },
           {
             "body": {
-              "id": 1076,
+              "id": 1069,
               "nodeType": "Block",
               "src": "407:65:9",
               "statements": [
@@ -393,7 +393,7 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 1072,
+                        "id": 1065,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -402,18 +402,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1067,
+                            "id": 1060,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1962,
+                            "referencedDeclaration": 2003,
                             "src": "421:3:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1068,
+                          "id": 1061,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -433,25 +433,25 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 1069,
+                            "id": 1062,
                             "name": "pirateToOwner",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 922,
+                            "referencedDeclaration": 915,
                             "src": "435:13:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                               "typeString": "mapping(uint256 => address)"
                             }
                           },
-                          "id": 1071,
+                          "id": 1064,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 1070,
+                            "id": 1063,
                             "name": "_pirateId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1064,
+                            "referencedDeclaration": 1057,
                             "src": "449:9:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -483,21 +483,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 1066,
+                      "id": 1059,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1965,
-                        1966
+                        2006,
+                        2007
                       ],
-                      "referencedDeclaration": 1965,
+                      "referencedDeclaration": 2006,
                       "src": "413:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1073,
+                    "id": 1066,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -511,31 +511,31 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1074,
+                  "id": 1067,
                   "nodeType": "ExpressionStatement",
                   "src": "413:47:9"
                 },
                 {
-                  "id": 1075,
+                  "id": 1068,
                   "nodeType": "PlaceholderStatement",
                   "src": "466:1:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1077,
+            "id": 1070,
             "name": "onlyOwnerOf",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 1065,
+              "id": 1058,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1064,
+                  "id": 1057,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1077,
+                  "scope": 1070,
                   "src": "391:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -544,7 +544,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1063,
+                    "id": 1056,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "391:4:9",
@@ -564,28 +564,28 @@
           },
           {
             "body": {
-              "id": 1090,
+              "id": 1083,
               "nodeType": "Block",
               "src": "544:47:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1088,
+                    "id": 1081,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1084,
+                      "id": 1077,
                       "name": "petContract",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1062,
+                      "referencedDeclaration": 1055,
                       "src": "550:11:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_PetInterface_$1058",
+                        "typeIdentifier": "t_contract$_PetInterface_$1051",
                         "typeString": "contract PetInterface"
                       }
                     },
@@ -596,11 +596,11 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 1086,
+                          "id": 1079,
                           "name": "_address",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1079,
+                          "referencedDeclaration": 1072,
                           "src": "577:8:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -615,18 +615,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 1085,
+                        "id": 1078,
                         "name": "PetInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1058,
+                        "referencedDeclaration": 1051,
                         "src": "564:12:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_PetInterface_$1058_$",
+                          "typeIdentifier": "t_type$_t_contract$_PetInterface_$1051_$",
                           "typeString": "type(contract PetInterface)"
                         }
                       },
-                      "id": 1087,
+                      "id": 1080,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -636,38 +636,38 @@
                       "nodeType": "FunctionCall",
                       "src": "564:22:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_PetInterface_$1058",
+                        "typeIdentifier": "t_contract$_PetInterface_$1051",
                         "typeString": "contract PetInterface"
                       }
                     },
                     "src": "550:36:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_PetInterface_$1058",
+                      "typeIdentifier": "t_contract$_PetInterface_$1051",
                       "typeString": "contract PetInterface"
                     }
                   },
-                  "id": 1089,
+                  "id": 1082,
                   "nodeType": "ExpressionStatement",
                   "src": "550:36:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1091,
+            "id": 1084,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 1082,
+                "id": 1075,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 1081,
+                  "id": 1074,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 692,
+                  "referencedDeclaration": 685,
                   "src": "534:9:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -681,15 +681,15 @@
             "name": "setPetContractAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1080,
+              "id": 1073,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1079,
+                  "id": 1072,
                   "name": "_address",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1091,
+                  "scope": 1084,
                   "src": "507:16:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -698,7 +698,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1078,
+                    "id": 1071,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "507:7:9",
@@ -715,12 +715,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1083,
+              "id": 1076,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "544:0:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "476:115:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -728,14 +728,14 @@
           },
           {
             "body": {
-              "id": 1106,
+              "id": 1099,
               "nodeType": "Block",
               "src": "654:57:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1104,
+                    "id": 1097,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -744,25 +744,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1096,
+                        "id": 1089,
                         "name": "_pirate",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1093,
+                        "referencedDeclaration": 1086,
                         "src": "660:7:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                          "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                           "typeString": "struct PirateFactory.Pirate storage pointer"
                         }
                       },
-                      "id": 1098,
+                      "id": 1091,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "readyTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 910,
+                      "referencedDeclaration": 903,
                       "src": "660:17:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint32",
@@ -780,18 +780,18 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 1102,
+                          "id": 1095,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftExpression": {
                             "argumentTypes": null,
-                            "id": 1100,
+                            "id": 1093,
                             "name": "now",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1964,
+                            "referencedDeclaration": 2005,
                             "src": "687:3:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -802,11 +802,11 @@
                           "operator": "+",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 1101,
+                            "id": 1094,
                             "name": "cooldownTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 870,
+                            "referencedDeclaration": 863,
                             "src": "693:12:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -827,7 +827,7 @@
                             "typeString": "uint256"
                           }
                         ],
-                        "id": 1099,
+                        "id": 1092,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -840,7 +840,7 @@
                         },
                         "typeName": "uint32"
                       },
-                      "id": 1103,
+                      "id": 1096,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -860,14 +860,14 @@
                       "typeString": "uint32"
                     }
                   },
-                  "id": 1105,
+                  "id": 1098,
                   "nodeType": "ExpressionStatement",
                   "src": "660:46:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1107,
+            "id": 1100,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -875,31 +875,31 @@
             "name": "_triggerCooldown",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1094,
+              "id": 1087,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1093,
+                  "id": 1086,
                   "name": "_pirate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1107,
+                  "scope": 1100,
                   "src": "621:22:9",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                    "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                     "typeString": "struct PirateFactory.Pirate"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1092,
+                    "id": 1085,
                     "name": "Pirate",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 915,
+                    "referencedDeclaration": 908,
                     "src": "621:6:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                       "typeString": "struct PirateFactory.Pirate"
                     }
                   },
@@ -911,12 +911,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1095,
+              "id": 1088,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "654:0:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "595:116:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -924,7 +924,7 @@
           },
           {
             "body": {
-              "id": 1120,
+              "id": 1113,
               "nodeType": "Block",
               "src": "786:46:9",
               "statements": [
@@ -938,7 +938,7 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 1117,
+                        "id": 1110,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -947,25 +947,25 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1114,
+                            "id": 1107,
                             "name": "_pirate",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1109,
+                            "referencedDeclaration": 1102,
                             "src": "802:7:9",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                              "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                               "typeString": "struct PirateFactory.Pirate storage pointer"
                             }
                           },
-                          "id": 1115,
+                          "id": 1108,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "readyTime",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 910,
+                          "referencedDeclaration": 903,
                           "src": "802:17:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
@@ -976,11 +976,11 @@
                         "operator": "<=",
                         "rightExpression": {
                           "argumentTypes": null,
-                          "id": 1116,
+                          "id": 1109,
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1964,
+                          "referencedDeclaration": 2005,
                           "src": "823:3:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -994,7 +994,7 @@
                         }
                       }
                     ],
-                    "id": 1118,
+                    "id": 1111,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
@@ -1007,15 +1007,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 1113,
-                  "id": 1119,
+                  "functionReturnParameters": 1106,
+                  "id": 1112,
                   "nodeType": "Return",
                   "src": "794:33:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1121,
+            "id": 1114,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1023,31 +1023,31 @@
             "name": "_isReady",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1110,
+              "id": 1103,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1109,
+                  "id": 1102,
                   "name": "_pirate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1121,
+                  "scope": 1114,
                   "src": "733:22:9",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                    "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                     "typeString": "struct PirateFactory.Pirate"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1108,
+                    "id": 1101,
                     "name": "Pirate",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 915,
+                    "referencedDeclaration": 908,
                     "src": "733:6:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                       "typeString": "struct PirateFactory.Pirate"
                     }
                   },
@@ -1059,15 +1059,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1113,
+              "id": 1106,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1112,
+                  "id": 1105,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1121,
+                  "scope": 1114,
                   "src": "780:4:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1076,7 +1076,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 1111,
+                    "id": 1104,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "780:4:9",
@@ -1091,7 +1091,7 @@
               ],
               "src": "779:6:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "715:117:9",
             "stateMutability": "view",
             "superFunction": null,
@@ -1099,37 +1099,37 @@
           },
           {
             "body": {
-              "id": 1158,
+              "id": 1141,
               "nodeType": "Block",
-              "src": "1276:281:9",
+              "src": "1276:285:9",
               "statements": [
                 {
                   "assignments": [
-                    1131
+                    1124
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1131,
+                      "id": 1124,
                       "name": "myPirate",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1159,
+                      "scope": 1142,
                       "src": "1282:23:9",
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                        "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                         "typeString": "struct PirateFactory.Pirate"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 1130,
+                        "id": 1123,
                         "name": "Pirate",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 915,
+                        "referencedDeclaration": 908,
                         "src": "1282:6:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                          "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                           "typeString": "struct PirateFactory.Pirate"
                         }
                       },
@@ -1137,30 +1137,30 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1135,
+                  "id": 1128,
                   "initialValue": {
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 1132,
+                      "id": 1125,
                       "name": "pirates",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 918,
+                      "referencedDeclaration": 911,
                       "src": "1308:7:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_array$_t_struct$_Pirate_$915_storage_$dyn_storage",
+                        "typeIdentifier": "t_array$_t_struct$_Pirate_$908_storage_$dyn_storage",
                         "typeString": "struct PirateFactory.Pirate storage ref[] storage ref"
                       }
                     },
-                    "id": 1134,
+                    "id": 1127,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 1133,
+                      "id": 1126,
                       "name": "_pirateId",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1123,
+                      "referencedDeclaration": 1116,
                       "src": "1316:9:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1174,7 +1174,7 @@
                     "nodeType": "IndexAccess",
                     "src": "1308:18:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage",
                       "typeString": "struct PirateFactory.Pirate storage ref"
                     }
                   },
@@ -1187,121 +1187,28 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "arguments": [
-                          {
-                            "argumentTypes": null,
-                            "id": 1138,
-                            "name": "myPirate",
-                            "nodeType": "Identifier",
-                            "overloadedDeclarations": [],
-                            "referencedDeclaration": 1131,
-                            "src": "1349:8:9",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                              "typeString": "struct PirateFactory.Pirate storage pointer"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                              "typeString": "struct PirateFactory.Pirate storage pointer"
-                            }
-                          ],
-                          "id": 1137,
-                          "name": "_isReady",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 1121,
-                          "src": "1340:8:9",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_Pirate_$915_storage_ptr_$returns$_t_bool_$",
-                            "typeString": "function (struct PirateFactory.Pirate storage pointer) view returns (bool)"
-                          }
-                        },
-                        "id": 1139,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "functionCall",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "1340:18:9",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_bool",
-                          "typeString": "bool"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_bool",
-                          "typeString": "bool"
-                        }
-                      ],
-                      "id": 1136,
-                      "name": "require",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        1965,
-                        1966
-                      ],
-                      "referencedDeclaration": 1965,
-                      "src": "1332:7:9",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
-                        "typeString": "function (bool) pure"
-                      }
-                    },
-                    "id": 1140,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "1332:27:9",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 1141,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1332:27:9"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
-                        "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1145,
+                          "id": 1132,
                           "name": "pirateToOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 922,
-                          "src": "1392:13:9",
+                          "referencedDeclaration": 915,
+                          "src": "1394:13:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                             "typeString": "mapping(uint256 => address)"
                           }
                         },
-                        "id": 1147,
+                        "id": 1134,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1146,
+                          "id": 1133,
                           "name": "_pirateId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1123,
-                          "src": "1406:9:9",
+                          "referencedDeclaration": 1116,
+                          "src": "1408:9:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1312,7 +1219,7 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1392:24:9",
+                        "src": "1394:24:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1322,26 +1229,26 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1148,
+                          "id": 1135,
                           "name": "pirateToOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 922,
-                          "src": "1417:13:9",
+                          "referencedDeclaration": 915,
+                          "src": "1419:13:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                             "typeString": "mapping(uint256 => address)"
                           }
                         },
-                        "id": 1150,
+                        "id": 1137,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1149,
+                          "id": 1136,
                           "name": "_pirateIdEnemy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1125,
-                          "src": "1431:14:9",
+                          "referencedDeclaration": 1118,
+                          "src": "1433:14:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1352,7 +1259,7 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1417:29:9",
+                        "src": "1419:29:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1361,14 +1268,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "32",
-                        "id": 1151,
+                        "id": 1138,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1447:1:9",
+                        "src": "1449:1:9",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_2_by_1",
@@ -1394,32 +1301,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1142,
+                        "id": 1129,
                         "name": "uni",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 888,
-                        "src": "1370:3:9",
+                        "referencedDeclaration": 881,
+                        "src": "1372:3:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UnigToken_$610",
+                          "typeIdentifier": "t_contract$_UnigToken_$603",
                           "typeString": "contract UnigToken"
                         }
                       },
-                      "id": 1144,
+                      "id": 1131,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "stealFundsPercent",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 609,
-                      "src": "1370:21:9",
+                      "referencedDeclaration": 602,
+                      "src": "1372:21:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$_t_bool_$",
                         "typeString": "function (address,address,uint256) external returns (bool)"
                       }
                     },
-                    "id": 1152,
+                    "id": 1139,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1427,74 +1334,20 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1370:79:9",
+                    "src": "1372:79:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 1153,
+                  "id": 1140,
                   "nodeType": "ExpressionStatement",
-                  "src": "1370:79:9"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
-                        "argumentTypes": null,
-                        "id": 1155,
-                        "name": "myPirate",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 1131,
-                        "src": "1543:8:9",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                          "typeString": "struct PirateFactory.Pirate storage pointer"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                          "typeString": "struct PirateFactory.Pirate storage pointer"
-                        }
-                      ],
-                      "id": 1154,
-                      "name": "_triggerCooldown",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 1107,
-                      "src": "1526:16:9",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Pirate_$915_storage_ptr_$returns$__$",
-                        "typeString": "function (struct PirateFactory.Pirate storage pointer)"
-                      }
-                    },
-                    "id": 1156,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "1526:26:9",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 1157,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1526:26:9"
+                  "src": "1372:79:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1159,
+            "id": 1142,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1502,15 +1355,15 @@
             "name": "stealPirate",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1128,
+              "id": 1121,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1123,
+                  "id": 1116,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1211:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1519,7 +1372,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1122,
+                    "id": 1115,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "1211:4:9",
@@ -1533,10 +1386,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1125,
+                  "id": 1118,
                   "name": "_pirateIdEnemy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1227:19:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1545,7 +1398,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1124,
+                    "id": 1117,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "1227:4:9",
@@ -1559,10 +1412,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1127,
+                  "id": 1120,
                   "name": "typeAttack",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1248:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1571,7 +1424,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1126,
+                    "id": 1119,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1248:6:9",
@@ -1588,33 +1441,33 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1129,
+              "id": 1122,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1276:0:9"
             },
-            "scope": 1179,
-            "src": "1190:367:9",
+            "scope": 1162,
+            "src": "1190:371:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 1177,
+              "id": 1160,
               "nodeType": "Block",
-              "src": "1620:70:9",
+              "src": "1624:70:9",
               "statements": [
                 {
                   "assignments": [],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1167,
+                      "id": 1150,
                       "name": "petDna",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1178,
-                      "src": "1626:11:9",
+                      "scope": 1161,
+                      "src": "1630:11:9",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
@@ -1622,10 +1475,10 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 1166,
+                        "id": 1149,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
-                        "src": "1626:4:9",
+                        "src": "1630:4:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1635,15 +1488,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1168,
+                  "id": 1151,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1626:11:9"
+                  "src": "1630:11:9"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1175,
+                    "id": 1158,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1658,26 +1511,26 @@
                         null,
                         {
                           "argumentTypes": null,
-                          "id": 1169,
+                          "id": 1152,
                           "name": "petDna",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1167,
-                          "src": "1649:6:9",
+                          "referencedDeclaration": 1150,
+                          "src": "1653:6:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         }
                       ],
-                      "id": 1170,
+                      "id": 1153,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "TupleExpression",
-                      "src": "1643:13:9",
+                      "src": "1647:13:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_tuple$__$__$__$__$__$_t_uint256_$",
                         "typeString": "tuple(,,,,,uint256)"
@@ -1690,12 +1543,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 1173,
+                          "id": 1156,
                           "name": "_petId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1163,
-                          "src": "1678:6:9",
+                          "referencedDeclaration": 1146,
+                          "src": "1682:6:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1711,32 +1564,32 @@
                         ],
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1171,
+                          "id": 1154,
                           "name": "petContract",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1062,
-                          "src": "1659:11:9",
+                          "referencedDeclaration": 1055,
+                          "src": "1663:11:9",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PetInterface_$1058",
+                            "typeIdentifier": "t_contract$_PetInterface_$1051",
                             "typeString": "contract PetInterface"
                           }
                         },
-                        "id": 1172,
+                        "id": 1155,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "kidnap",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 1057,
-                        "src": "1659:18:9",
+                        "referencedDeclaration": 1050,
+                        "src": "1663:18:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_bool_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$",
                           "typeString": "function (uint256) view external returns (bool,uint256,uint256,uint256,uint256,uint256)"
                         }
                       },
-                      "id": 1174,
+                      "id": 1157,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1744,26 +1597,26 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "1659:26:9",
+                      "src": "1663:26:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_tuple$_t_bool_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$",
                         "typeString": "tuple(bool,uint256,uint256,uint256,uint256,uint256)"
                       }
                     },
-                    "src": "1643:42:9",
+                    "src": "1647:42:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1176,
+                  "id": 1159,
                   "nodeType": "ExpressionStatement",
-                  "src": "1643:42:9"
+                  "src": "1647:42:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1178,
+            "id": 1161,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1771,16 +1624,16 @@
             "name": "_kiddnapPet",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1164,
+              "id": 1147,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1161,
+                  "id": 1144,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1178,
-                  "src": "1582:14:9",
+                  "scope": 1161,
+                  "src": "1586:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1788,10 +1641,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1160,
+                    "id": 1143,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1582:4:9",
+                    "src": "1586:4:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1802,11 +1655,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1163,
+                  "id": 1146,
                   "name": "_petId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1178,
-                  "src": "1598:11:9",
+                  "scope": 1161,
+                  "src": "1602:11:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1814,10 +1667,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1162,
+                    "id": 1145,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1598:4:9",
+                    "src": "1602:4:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1827,43 +1680,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1581:29:9"
+              "src": "1585:29:9"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1165,
+              "id": 1148,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1620:0:9"
+              "src": "1624:0:9"
             },
-            "scope": 1179,
-            "src": "1561:129:9",
+            "scope": 1162,
+            "src": "1565:129:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 1180,
-        "src": "296:1396:9"
+        "scope": 1163,
+        "src": "296:1400:9"
       }
     ],
-    "src": "0:1694:9"
+    "src": "0:1698:9"
   },
   "legacyAST": {
     "absolutePath": "/home/freeman/Desktop/dappG/contracts/piratefeeding.sol",
     "exportedSymbols": {
       "PetInterface": [
-        1058
+        1051
       ],
       "PirateFeeding": [
-        1179
+        1162
       ]
     },
-    "id": 1180,
+    "id": 1163,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1039,
+        "id": 1032,
         "literals": [
           "solidity",
           "^",
@@ -1876,10 +1729,10 @@
       {
         "absolutePath": "/home/freeman/Desktop/dappG/contracts/piratefactory.sol",
         "file": "./piratefactory.sol",
-        "id": 1040,
+        "id": 1033,
         "nodeType": "ImportDirective",
-        "scope": 1180,
-        "sourceUnit": 1038,
+        "scope": 1163,
+        "sourceUnit": 1031,
         "src": "26:29:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1890,9 +1743,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1058,
+        "id": 1051,
         "linearizedBaseContracts": [
-          1058
+          1051
         ],
         "name": "PetInterface",
         "nodeType": "ContractDefinition",
@@ -1900,7 +1753,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1057,
+            "id": 1050,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1908,15 +1761,15 @@
             "name": "kidnap",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1043,
+              "id": 1036,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1042,
+                  "id": 1035,
                   "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "115:11:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1925,7 +1778,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1041,
+                    "id": 1034,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "115:7:9",
@@ -1942,15 +1795,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1056,
+              "id": 1049,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1045,
+                  "id": 1038,
                   "name": "isReady",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "156:12:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1959,7 +1812,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 1044,
+                    "id": 1037,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "156:4:9",
@@ -1973,10 +1826,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1047,
+                  "id": 1040,
                   "name": "cooldownIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "174:21:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1985,7 +1838,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1046,
+                    "id": 1039,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:9",
@@ -1999,10 +1852,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1049,
+                  "id": 1042,
                   "name": "nextActionAt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "201:20:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2011,7 +1864,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1048,
+                    "id": 1041,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:9",
@@ -2025,10 +1878,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1051,
+                  "id": 1044,
                   "name": "birthTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "227:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2037,7 +1890,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1050,
+                    "id": 1043,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "227:7:9",
@@ -2051,10 +1904,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1053,
+                  "id": 1046,
                   "name": "generation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "250:18:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2063,7 +1916,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1052,
+                    "id": 1045,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:9",
@@ -2077,10 +1930,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1055,
+                  "id": 1048,
                   "name": "genes",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1057,
+                  "scope": 1050,
                   "src": "274:13:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2089,7 +1942,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1054,
+                    "id": 1047,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "274:7:9",
@@ -2104,14 +1957,14 @@
               ],
               "src": "150:141:9"
             },
-            "scope": 1058,
+            "scope": 1051,
             "src": "99:193:9",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1180,
+        "scope": 1163,
         "src": "57:237:9"
       },
       {
@@ -2120,59 +1973,59 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1059,
+              "id": 1052,
               "name": "PirateFactory",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1037,
+              "referencedDeclaration": 1030,
               "src": "322:13:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PirateFactory_$1037",
+                "typeIdentifier": "t_contract$_PirateFactory_$1030",
                 "typeString": "contract PirateFactory"
               }
             },
-            "id": 1060,
+            "id": 1053,
             "nodeType": "InheritanceSpecifier",
             "src": "322:13:9"
           }
         ],
         "contractDependencies": [
-          718,
-          1037
+          711,
+          1030
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1179,
+        "id": 1162,
         "linearizedBaseContracts": [
-          1179,
-          1037,
-          718
+          1162,
+          1030,
+          711
         ],
         "name": "PirateFeeding",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1062,
+            "id": 1055,
             "name": "petContract",
             "nodeType": "VariableDeclaration",
-            "scope": 1179,
+            "scope": 1162,
             "src": "341:24:9",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_PetInterface_$1058",
+              "typeIdentifier": "t_contract$_PetInterface_$1051",
               "typeString": "contract PetInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 1061,
+              "id": 1054,
               "name": "PetInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1058,
+              "referencedDeclaration": 1051,
               "src": "341:12:9",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_PetInterface_$1058",
+                "typeIdentifier": "t_contract$_PetInterface_$1051",
                 "typeString": "contract PetInterface"
               }
             },
@@ -2181,7 +2034,7 @@
           },
           {
             "body": {
-              "id": 1076,
+              "id": 1069,
               "nodeType": "Block",
               "src": "407:65:9",
               "statements": [
@@ -2195,7 +2048,7 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 1072,
+                        "id": 1065,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2204,18 +2057,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1067,
+                            "id": 1060,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1962,
+                            "referencedDeclaration": 2003,
                             "src": "421:3:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1068,
+                          "id": 1061,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2235,25 +2088,25 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 1069,
+                            "id": 1062,
                             "name": "pirateToOwner",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 922,
+                            "referencedDeclaration": 915,
                             "src": "435:13:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                               "typeString": "mapping(uint256 => address)"
                             }
                           },
-                          "id": 1071,
+                          "id": 1064,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 1070,
+                            "id": 1063,
                             "name": "_pirateId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1064,
+                            "referencedDeclaration": 1057,
                             "src": "449:9:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2285,21 +2138,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 1066,
+                      "id": 1059,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1965,
-                        1966
+                        2006,
+                        2007
                       ],
-                      "referencedDeclaration": 1965,
+                      "referencedDeclaration": 2006,
                       "src": "413:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1073,
+                    "id": 1066,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2313,31 +2166,31 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1074,
+                  "id": 1067,
                   "nodeType": "ExpressionStatement",
                   "src": "413:47:9"
                 },
                 {
-                  "id": 1075,
+                  "id": 1068,
                   "nodeType": "PlaceholderStatement",
                   "src": "466:1:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1077,
+            "id": 1070,
             "name": "onlyOwnerOf",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 1065,
+              "id": 1058,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1064,
+                  "id": 1057,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1077,
+                  "scope": 1070,
                   "src": "391:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2346,7 +2199,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1063,
+                    "id": 1056,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "391:4:9",
@@ -2366,28 +2219,28 @@
           },
           {
             "body": {
-              "id": 1090,
+              "id": 1083,
               "nodeType": "Block",
               "src": "544:47:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1088,
+                    "id": 1081,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1084,
+                      "id": 1077,
                       "name": "petContract",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1062,
+                      "referencedDeclaration": 1055,
                       "src": "550:11:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_PetInterface_$1058",
+                        "typeIdentifier": "t_contract$_PetInterface_$1051",
                         "typeString": "contract PetInterface"
                       }
                     },
@@ -2398,11 +2251,11 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 1086,
+                          "id": 1079,
                           "name": "_address",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1079,
+                          "referencedDeclaration": 1072,
                           "src": "577:8:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -2417,18 +2270,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 1085,
+                        "id": 1078,
                         "name": "PetInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1058,
+                        "referencedDeclaration": 1051,
                         "src": "564:12:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_PetInterface_$1058_$",
+                          "typeIdentifier": "t_type$_t_contract$_PetInterface_$1051_$",
                           "typeString": "type(contract PetInterface)"
                         }
                       },
-                      "id": 1087,
+                      "id": 1080,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2438,38 +2291,38 @@
                       "nodeType": "FunctionCall",
                       "src": "564:22:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_PetInterface_$1058",
+                        "typeIdentifier": "t_contract$_PetInterface_$1051",
                         "typeString": "contract PetInterface"
                       }
                     },
                     "src": "550:36:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_PetInterface_$1058",
+                      "typeIdentifier": "t_contract$_PetInterface_$1051",
                       "typeString": "contract PetInterface"
                     }
                   },
-                  "id": 1089,
+                  "id": 1082,
                   "nodeType": "ExpressionStatement",
                   "src": "550:36:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1091,
+            "id": 1084,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 1082,
+                "id": 1075,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 1081,
+                  "id": 1074,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 692,
+                  "referencedDeclaration": 685,
                   "src": "534:9:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2483,15 +2336,15 @@
             "name": "setPetContractAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1080,
+              "id": 1073,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1079,
+                  "id": 1072,
                   "name": "_address",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1091,
+                  "scope": 1084,
                   "src": "507:16:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2500,7 +2353,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1078,
+                    "id": 1071,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "507:7:9",
@@ -2517,12 +2370,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1083,
+              "id": 1076,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "544:0:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "476:115:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2530,14 +2383,14 @@
           },
           {
             "body": {
-              "id": 1106,
+              "id": 1099,
               "nodeType": "Block",
               "src": "654:57:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1104,
+                    "id": 1097,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2546,25 +2399,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1096,
+                        "id": 1089,
                         "name": "_pirate",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1093,
+                        "referencedDeclaration": 1086,
                         "src": "660:7:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                          "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                           "typeString": "struct PirateFactory.Pirate storage pointer"
                         }
                       },
-                      "id": 1098,
+                      "id": 1091,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "readyTime",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 910,
+                      "referencedDeclaration": 903,
                       "src": "660:17:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint32",
@@ -2582,18 +2435,18 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 1102,
+                          "id": 1095,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftExpression": {
                             "argumentTypes": null,
-                            "id": 1100,
+                            "id": 1093,
                             "name": "now",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1964,
+                            "referencedDeclaration": 2005,
                             "src": "687:3:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2604,11 +2457,11 @@
                           "operator": "+",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 1101,
+                            "id": 1094,
                             "name": "cooldownTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 870,
+                            "referencedDeclaration": 863,
                             "src": "693:12:9",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2629,7 +2482,7 @@
                             "typeString": "uint256"
                           }
                         ],
-                        "id": 1099,
+                        "id": 1092,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2642,7 +2495,7 @@
                         },
                         "typeName": "uint32"
                       },
-                      "id": 1103,
+                      "id": 1096,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2662,14 +2515,14 @@
                       "typeString": "uint32"
                     }
                   },
-                  "id": 1105,
+                  "id": 1098,
                   "nodeType": "ExpressionStatement",
                   "src": "660:46:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1107,
+            "id": 1100,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -2677,31 +2530,31 @@
             "name": "_triggerCooldown",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1094,
+              "id": 1087,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1093,
+                  "id": 1086,
                   "name": "_pirate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1107,
+                  "scope": 1100,
                   "src": "621:22:9",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                    "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                     "typeString": "struct PirateFactory.Pirate"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1092,
+                    "id": 1085,
                     "name": "Pirate",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 915,
+                    "referencedDeclaration": 908,
                     "src": "621:6:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                       "typeString": "struct PirateFactory.Pirate"
                     }
                   },
@@ -2713,12 +2566,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1095,
+              "id": 1088,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "654:0:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "595:116:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2726,7 +2579,7 @@
           },
           {
             "body": {
-              "id": 1120,
+              "id": 1113,
               "nodeType": "Block",
               "src": "786:46:9",
               "statements": [
@@ -2740,7 +2593,7 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 1117,
+                        "id": 1110,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2749,25 +2602,25 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1114,
+                            "id": 1107,
                             "name": "_pirate",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1109,
+                            "referencedDeclaration": 1102,
                             "src": "802:7:9",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                              "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                               "typeString": "struct PirateFactory.Pirate storage pointer"
                             }
                           },
-                          "id": 1115,
+                          "id": 1108,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "readyTime",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 910,
+                          "referencedDeclaration": 903,
                           "src": "802:17:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
@@ -2778,11 +2631,11 @@
                         "operator": "<=",
                         "rightExpression": {
                           "argumentTypes": null,
-                          "id": 1116,
+                          "id": 1109,
                           "name": "now",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1964,
+                          "referencedDeclaration": 2005,
                           "src": "823:3:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -2796,7 +2649,7 @@
                         }
                       }
                     ],
-                    "id": 1118,
+                    "id": 1111,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
@@ -2809,15 +2662,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 1113,
-                  "id": 1119,
+                  "functionReturnParameters": 1106,
+                  "id": 1112,
                   "nodeType": "Return",
                   "src": "794:33:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1121,
+            "id": 1114,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2825,31 +2678,31 @@
             "name": "_isReady",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1110,
+              "id": 1103,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1109,
+                  "id": 1102,
                   "name": "_pirate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1121,
+                  "scope": 1114,
                   "src": "733:22:9",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                    "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                     "typeString": "struct PirateFactory.Pirate"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1108,
+                    "id": 1101,
                     "name": "Pirate",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 915,
+                    "referencedDeclaration": 908,
                     "src": "733:6:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                       "typeString": "struct PirateFactory.Pirate"
                     }
                   },
@@ -2861,15 +2714,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1113,
+              "id": 1106,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1112,
+                  "id": 1105,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1121,
+                  "scope": 1114,
                   "src": "780:4:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2878,7 +2731,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 1111,
+                    "id": 1104,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "780:4:9",
@@ -2893,7 +2746,7 @@
               ],
               "src": "779:6:9"
             },
-            "scope": 1179,
+            "scope": 1162,
             "src": "715:117:9",
             "stateMutability": "view",
             "superFunction": null,
@@ -2901,37 +2754,37 @@
           },
           {
             "body": {
-              "id": 1158,
+              "id": 1141,
               "nodeType": "Block",
-              "src": "1276:281:9",
+              "src": "1276:285:9",
               "statements": [
                 {
                   "assignments": [
-                    1131
+                    1124
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1131,
+                      "id": 1124,
                       "name": "myPirate",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1159,
+                      "scope": 1142,
                       "src": "1282:23:9",
                       "stateVariable": false,
                       "storageLocation": "storage",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                        "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                         "typeString": "struct PirateFactory.Pirate"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 1130,
+                        "id": 1123,
                         "name": "Pirate",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 915,
+                        "referencedDeclaration": 908,
                         "src": "1282:6:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
+                          "typeIdentifier": "t_struct$_Pirate_$908_storage_ptr",
                           "typeString": "struct PirateFactory.Pirate"
                         }
                       },
@@ -2939,30 +2792,30 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1135,
+                  "id": 1128,
                   "initialValue": {
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 1132,
+                      "id": 1125,
                       "name": "pirates",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 918,
+                      "referencedDeclaration": 911,
                       "src": "1308:7:9",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_array$_t_struct$_Pirate_$915_storage_$dyn_storage",
+                        "typeIdentifier": "t_array$_t_struct$_Pirate_$908_storage_$dyn_storage",
                         "typeString": "struct PirateFactory.Pirate storage ref[] storage ref"
                       }
                     },
-                    "id": 1134,
+                    "id": 1127,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 1133,
+                      "id": 1126,
                       "name": "_pirateId",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1123,
+                      "referencedDeclaration": 1116,
                       "src": "1316:9:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -2976,7 +2829,7 @@
                     "nodeType": "IndexAccess",
                     "src": "1308:18:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Pirate_$915_storage",
+                      "typeIdentifier": "t_struct$_Pirate_$908_storage",
                       "typeString": "struct PirateFactory.Pirate storage ref"
                     }
                   },
@@ -2989,121 +2842,28 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "arguments": [
-                          {
-                            "argumentTypes": null,
-                            "id": 1138,
-                            "name": "myPirate",
-                            "nodeType": "Identifier",
-                            "overloadedDeclarations": [],
-                            "referencedDeclaration": 1131,
-                            "src": "1349:8:9",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                              "typeString": "struct PirateFactory.Pirate storage pointer"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                              "typeString": "struct PirateFactory.Pirate storage pointer"
-                            }
-                          ],
-                          "id": 1137,
-                          "name": "_isReady",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 1121,
-                          "src": "1340:8:9",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_Pirate_$915_storage_ptr_$returns$_t_bool_$",
-                            "typeString": "function (struct PirateFactory.Pirate storage pointer) view returns (bool)"
-                          }
-                        },
-                        "id": 1139,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "functionCall",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "1340:18:9",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_bool",
-                          "typeString": "bool"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_bool",
-                          "typeString": "bool"
-                        }
-                      ],
-                      "id": 1136,
-                      "name": "require",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        1965,
-                        1966
-                      ],
-                      "referencedDeclaration": 1965,
-                      "src": "1332:7:9",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
-                        "typeString": "function (bool) pure"
-                      }
-                    },
-                    "id": 1140,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "1332:27:9",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 1141,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1332:27:9"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
-                        "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1145,
+                          "id": 1132,
                           "name": "pirateToOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 922,
-                          "src": "1392:13:9",
+                          "referencedDeclaration": 915,
+                          "src": "1394:13:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                             "typeString": "mapping(uint256 => address)"
                           }
                         },
-                        "id": 1147,
+                        "id": 1134,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1146,
+                          "id": 1133,
                           "name": "_pirateId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1123,
-                          "src": "1406:9:9",
+                          "referencedDeclaration": 1116,
+                          "src": "1408:9:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -3114,7 +2874,7 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1392:24:9",
+                        "src": "1394:24:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -3124,26 +2884,26 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1148,
+                          "id": 1135,
                           "name": "pirateToOwner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 922,
-                          "src": "1417:13:9",
+                          "referencedDeclaration": 915,
+                          "src": "1419:13:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_address_$",
                             "typeString": "mapping(uint256 => address)"
                           }
                         },
-                        "id": 1150,
+                        "id": 1137,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1149,
+                          "id": 1136,
                           "name": "_pirateIdEnemy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1125,
-                          "src": "1431:14:9",
+                          "referencedDeclaration": 1118,
+                          "src": "1433:14:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -3154,7 +2914,7 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1417:29:9",
+                        "src": "1419:29:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -3163,14 +2923,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "32",
-                        "id": 1151,
+                        "id": 1138,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1447:1:9",
+                        "src": "1449:1:9",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_2_by_1",
@@ -3196,32 +2956,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1142,
+                        "id": 1129,
                         "name": "uni",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 888,
-                        "src": "1370:3:9",
+                        "referencedDeclaration": 881,
+                        "src": "1372:3:9",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_UnigToken_$610",
+                          "typeIdentifier": "t_contract$_UnigToken_$603",
                           "typeString": "contract UnigToken"
                         }
                       },
-                      "id": 1144,
+                      "id": 1131,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "stealFundsPercent",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 609,
-                      "src": "1370:21:9",
+                      "referencedDeclaration": 602,
+                      "src": "1372:21:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$_t_bool_$",
                         "typeString": "function (address,address,uint256) external returns (bool)"
                       }
                     },
-                    "id": 1152,
+                    "id": 1139,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3229,74 +2989,20 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1370:79:9",
+                    "src": "1372:79:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 1153,
+                  "id": 1140,
                   "nodeType": "ExpressionStatement",
-                  "src": "1370:79:9"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
-                        "argumentTypes": null,
-                        "id": 1155,
-                        "name": "myPirate",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 1131,
-                        "src": "1543:8:9",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                          "typeString": "struct PirateFactory.Pirate storage pointer"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_struct$_Pirate_$915_storage_ptr",
-                          "typeString": "struct PirateFactory.Pirate storage pointer"
-                        }
-                      ],
-                      "id": 1154,
-                      "name": "_triggerCooldown",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 1107,
-                      "src": "1526:16:9",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Pirate_$915_storage_ptr_$returns$__$",
-                        "typeString": "function (struct PirateFactory.Pirate storage pointer)"
-                      }
-                    },
-                    "id": 1156,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "1526:26:9",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 1157,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1526:26:9"
+                  "src": "1372:79:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1159,
+            "id": 1142,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -3304,15 +3010,15 @@
             "name": "stealPirate",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1128,
+              "id": 1121,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1123,
+                  "id": 1116,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1211:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3321,7 +3027,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1122,
+                    "id": 1115,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "1211:4:9",
@@ -3335,10 +3041,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1125,
+                  "id": 1118,
                   "name": "_pirateIdEnemy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1227:19:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3347,7 +3053,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1124,
+                    "id": 1117,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "1227:4:9",
@@ -3361,10 +3067,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1127,
+                  "id": 1120,
                   "name": "typeAttack",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1159,
+                  "scope": 1142,
                   "src": "1248:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3373,7 +3079,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1126,
+                    "id": 1119,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1248:6:9",
@@ -3390,33 +3096,33 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 1129,
+              "id": 1122,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1276:0:9"
             },
-            "scope": 1179,
-            "src": "1190:367:9",
+            "scope": 1162,
+            "src": "1190:371:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 1177,
+              "id": 1160,
               "nodeType": "Block",
-              "src": "1620:70:9",
+              "src": "1624:70:9",
               "statements": [
                 {
                   "assignments": [],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1167,
+                      "id": 1150,
                       "name": "petDna",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1178,
-                      "src": "1626:11:9",
+                      "scope": 1161,
+                      "src": "1630:11:9",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
@@ -3424,10 +3130,10 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 1166,
+                        "id": 1149,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
-                        "src": "1626:4:9",
+                        "src": "1630:4:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3437,15 +3143,15 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1168,
+                  "id": 1151,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1626:11:9"
+                  "src": "1630:11:9"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1175,
+                    "id": 1158,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3460,26 +3166,26 @@
                         null,
                         {
                           "argumentTypes": null,
-                          "id": 1169,
+                          "id": 1152,
                           "name": "petDna",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1167,
-                          "src": "1649:6:9",
+                          "referencedDeclaration": 1150,
+                          "src": "1653:6:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         }
                       ],
-                      "id": 1170,
+                      "id": 1153,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "TupleExpression",
-                      "src": "1643:13:9",
+                      "src": "1647:13:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_tuple$__$__$__$__$__$_t_uint256_$",
                         "typeString": "tuple(,,,,,uint256)"
@@ -3492,12 +3198,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 1173,
+                          "id": 1156,
                           "name": "_petId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1163,
-                          "src": "1678:6:9",
+                          "referencedDeclaration": 1146,
+                          "src": "1682:6:9",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -3513,32 +3219,32 @@
                         ],
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1171,
+                          "id": 1154,
                           "name": "petContract",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1062,
-                          "src": "1659:11:9",
+                          "referencedDeclaration": 1055,
+                          "src": "1663:11:9",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_PetInterface_$1058",
+                            "typeIdentifier": "t_contract$_PetInterface_$1051",
                             "typeString": "contract PetInterface"
                           }
                         },
-                        "id": 1172,
+                        "id": 1155,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "kidnap",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 1057,
-                        "src": "1659:18:9",
+                        "referencedDeclaration": 1050,
+                        "src": "1663:18:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_bool_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$",
                           "typeString": "function (uint256) view external returns (bool,uint256,uint256,uint256,uint256,uint256)"
                         }
                       },
-                      "id": 1174,
+                      "id": 1157,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -3546,26 +3252,26 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "1659:26:9",
+                      "src": "1663:26:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_tuple$_t_bool_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$_t_uint256_$",
                         "typeString": "tuple(bool,uint256,uint256,uint256,uint256,uint256)"
                       }
                     },
-                    "src": "1643:42:9",
+                    "src": "1647:42:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1176,
+                  "id": 1159,
                   "nodeType": "ExpressionStatement",
-                  "src": "1643:42:9"
+                  "src": "1647:42:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 1178,
+            "id": 1161,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -3573,16 +3279,16 @@
             "name": "_kiddnapPet",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1164,
+              "id": 1147,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1161,
+                  "id": 1144,
                   "name": "_pirateId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1178,
-                  "src": "1582:14:9",
+                  "scope": 1161,
+                  "src": "1586:14:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3590,10 +3296,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1160,
+                    "id": 1143,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1582:4:9",
+                    "src": "1586:4:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3604,11 +3310,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1163,
+                  "id": 1146,
                   "name": "_petId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1178,
-                  "src": "1598:11:9",
+                  "scope": 1161,
+                  "src": "1602:11:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3616,10 +3322,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1162,
+                    "id": 1145,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1598:4:9",
+                    "src": "1602:4:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3629,27 +3335,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1581:29:9"
+              "src": "1585:29:9"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1165,
+              "id": 1148,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1620:0:9"
+              "src": "1624:0:9"
             },
-            "scope": 1179,
-            "src": "1561:129:9",
+            "scope": 1162,
+            "src": "1565:129:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 1180,
-        "src": "296:1396:9"
+        "scope": 1163,
+        "src": "296:1400:9"
       }
     ],
-    "src": "0:1694:9"
+    "src": "0:1698:9"
   },
   "compiler": {
     "name": "solc",
@@ -3657,5 +3363,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-02T13:07:51.520Z"
+  "updatedAt": "2018-08-02T21:16:59.860Z"
 }
