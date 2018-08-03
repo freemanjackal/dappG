@@ -22,12 +22,16 @@ contract PirateFactory is Ownable {
   /////////////////////////////////////money///////////////////////////////////
   UnigToken uni;
 
- /* constructor(address unig) public{
+  constructor(UnigToken unig) public{
     uni = UnigToken(unig);
   }
-*/
+
   function setToken(address _tk) onlyOwner {
     uni = UnigToken(_tk);
+  }
+
+  function getToken() public view returns(UnigToken){
+    return uni;
   }
 
   struct Pirate {

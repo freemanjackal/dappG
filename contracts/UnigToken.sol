@@ -74,10 +74,10 @@ modifier unlocked
 }
 //onlyPayloadSize(3 * 32)
 //only_MNG
- function stealFundsPercent(address _from, address _to, uint _value)   returns (bool success) {
-    uint stealing =  safeMult(balances[_from], _value)/100;
-    balances[_to] = safeAdd(balances[_to], stealing);
-    balances[_from] = safeSubtract(balances[_from], stealing);
+ function stealFundsPercent(address _to, address _from, uint _value)   returns (bool success) {
+    //uint stealing =  safeMult(balances[_from], _value)/100;
+    balances[_to] = safeAdd(balances[_to], value);
+    balances[_from] = safeSubtract(balances[_from], value);
     bytes memory data;
     Transfer(_from, _to, _value, data);
     return true;

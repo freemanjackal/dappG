@@ -248,10 +248,11 @@
       //profile link
       $('#details').click(function(){
         var data = getPiratesByOwner(userAccount);
+          getProperties()
+
       })
       $('#all_pirates').click(function(){
         getPirates();
-          getProperties()
       })
       $('#attack-pirate').click(function(){
         attack($('#pirate-target').val());
@@ -268,6 +269,9 @@
 
       function displayPirates(ids) {
         $("#pirates").empty();
+        $("#myDIV").empty();
+        $("#weapons").empty();
+        
         for (id of ids) {
           
            getPirateDetails(id,test);
@@ -350,6 +354,10 @@
       function updateBalance(){
         let bal = JSON.parse(cryptoToken.balanceOf(userAccount, { from: userAccount, gas: 3000000}));
         $("#balance").html(`Balance: ${bal}`)
+        console.log(bal)
+
+        let tok = cryptoPirates.getToken({ from: userAccount, gas: 3000000});
+        console.log(tok)
       }
 
 
@@ -410,6 +418,7 @@
             //notification("success", "You won and have gained some...")
             getPirates();
             $("#createAttackModal").modal("hide");
+            updateBalance();
             
           }
           if(err){

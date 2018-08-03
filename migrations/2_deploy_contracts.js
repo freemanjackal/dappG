@@ -32,16 +32,27 @@ module.exports = function(deployer) {
   deployer.deploy(mathLib);
   deployer.deploy(pausable);
   deployer.deploy(token);
-  deployer.deploy(unig);
+  deployer.deploy(unig).then(function(instance) {
+    //deployer.deploy(piratefactory, instance.address);
+
+    deployer.deploy(pirateownership, instance.address);
+    console.log("lolo")
+
+});
   deployer.deploy(wpp);
 
-  deployer.link(unig, piratefactory);
+ /* unig.deployed().then(function(instance) {
+    //deployer.deploy(piratefactory, instance.address);
+
+    deployer.deploy(pirateownership, instance.address);
+  console.log("lolo")
+
+})*/
+  //deployer.deploy(piratefeeding);
+  //deployer.deploy(piratehelper);
+  //deployer.deploy(pirateattack);
   
-  deployer.deploy(piratefactory);
-  deployer.deploy(piratefeeding);
-  deployer.deploy(piratehelper);
-  deployer.deploy(pirateattack);
-  deployer.deploy(pirateownership);
+
 
   //deployer.deploy(cr);
   //deployer.deploy(erc223);

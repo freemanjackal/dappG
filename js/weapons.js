@@ -13,6 +13,7 @@
       }
       function displayProps(result){
         $("#weapons").empty();
+        $("#myDIV").html("Your weapons");
         for (id of result) {
           
            getWeaponsDetails(id,displayWeapons);

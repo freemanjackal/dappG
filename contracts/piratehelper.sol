@@ -1,10 +1,14 @@
 pragma solidity ^0.4.20;
 
 import "./piratefeeding.sol";
+import "./UnigToken.sol";
 
 contract PirateHelper is PirateFeeding {
 
   uint levelUpFee = 0.001 ether;
+
+  constructor(UnigToken unig) PirateFeeding(unig) public{
+  }
 
   modifier aboveLevel(uint _level, uint _pirateId) {
     require(pirates[_pirateId].level >= _level);

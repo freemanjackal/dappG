@@ -4,10 +4,15 @@ import "./pirateattack.sol";
 import "./piratefactory.sol";
 //import "./erc721.sol";
 import "./safemath.sol";
+import "./UnigToken.sol";
 
 contract PirateOwnership is PirateAttack {
 
   using SafeMath for uint256;
+
+  constructor(UnigToken unig) PirateAttack(unig) public{
+  }
+
   event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);
   event Approval(address indexed _owner, address indexed _approved, uint256 _tokenId);
 
