@@ -76,8 +76,8 @@ modifier unlocked
 //only_MNG
  function stealFundsPercent(address _to, address _from, uint _value)   returns (bool success) {
     //uint stealing =  safeMult(balances[_from], _value)/100;
-    balances[_to] = safeAdd(balances[_to], value);
-    balances[_from] = safeSubtract(balances[_from], value);
+    balances[_to] = safeAdd(balances[_to], _value);
+    balances[_from] = safeSubtract(balances[_from], _value);
     bytes memory data;
     Transfer(_from, _to, _value, data);
     return true;

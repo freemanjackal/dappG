@@ -61,6 +61,7 @@ contract Weapon is ERC721 {
     uint32 userLevel;
     uint32 defensePoints;
     uint32 attackPoints;
+    uint price;
   }
 
   Weapon[] public weapons;
@@ -68,7 +69,7 @@ contract Weapon is ERC721 {
 
 
     function _createWeapon(string _name, uint _material) internal {
-    uint id = weapons.push(Weapon(_name, _material, 1, 3, 1)) - 1;
+    uint id = weapons.push(Weapon(_name, _material, 1, 3, 1,0)) - 1;
     weaponToOwner[id] = msg.sender;
     ownerWeaponCount[msg.sender]++;
     emit NewWeapon(id, _name, _material);

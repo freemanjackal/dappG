@@ -16,7 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-  </head>
+    </head>
   <style> 
 #myDIVs {
     height: 10px;
@@ -30,7 +30,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Best Pirate's game</a>
+        <a class="navbar-brand" href="#">MMORPG World of pirates</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,6 +53,12 @@
             </li-->
             <li class="nav-item">
               <span class="nav-link" id="balance">Balance: 0</span>
+              
+            </li>
+            <li class="nav-item">
+            <span class="nav-link" id="">
+              Messages <span class="badge badge-light">4</span>
+              </span>
               
             </li>
             <li class="nav-item">
@@ -83,20 +89,21 @@
 
         <div class="col-lg-3">
 
-          <h1 class="my-4">Working account: 0</h1>
+          <h3 class="my-4">Working account: 0</h3>
           <div class="list-group">
-            <a href="#" class="list-group-item" id="details" >Profile--show properties</a>
-            <a href="#" class="list-group-item" id="missions">Missions</a>
+            <a href="#" class="list-group-item" id="details" >Profile</a>
+            <a href="#" class="list-group-item" id="missionsLink">Missions</a>
             <a href="#" class="list-group-item" data-toggle="modal" data-target="#createPirateModal">Create pirate</a>
             <a href="#" class="list-group-item" id="all_pirates">List all pirates</a>
             <a href="#" class="list-group-item" id="attack-target" data-toggle="modal" data-target="#createAttackModal">Attack</a>
-            <a href="#" class="list-group-item" id="missions">Marketplace--dark market</a>
-            <a href="#" class="list-group-item" id="missions">Properties</a>
-            <a href="#" class="list-group-item" id="missions">Jobs</a>
-            <a href="#" class="list-group-item" id="missions">Map</a>
-            <a href="#" class="list-group-item" id="missions">Bounties</a>
-            <a href="#" class="list-group-item" id="missions">Recruit users--crew--criminal band--authorities task force</a>
-            <a href="#" class="list-group-item" id="missions">referrals</a>
+            <a href="#" class="list-group-item" id="marketLink">Marketplace/dark market</a>
+            <!--a href="#" class="list-group-item" id="missions">Properties</a-->
+            <a href="#" class="list-group-item" id="jobLink">Jobs</a>
+            <a href="#" class="list-group-item" id="mapLink">Map</a>
+            <a href="#" class="list-group-item" id="bountyLink">Bounties</a>
+            <a href="#" class="list-group-item" id="recruitLink">Recruitment</a>
+            <a href="#" class="list-group-item" id="treasureLink">Treasure hunt</a>
+            <a href="#" class="list-group-item" id="referralLink">Referrals</a>
 
           </div>
 
@@ -144,6 +151,35 @@
                <div class="row" id="weapons">
 
 
+              </div>
+              <div class="row" id="jobs">
+
+
+              </div>
+              <div class="row" id="maps">
+
+
+              </div>
+              <div class="row" id="missions">
+
+
+              </div>
+              <div class="row bs-example" id="market">
+                  
+              </div>
+              <div class="row bs-example" id="treasure">
+                  
+              </div>
+              <div class="row bs-example" id="bounty">
+                  
+              </div>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                  <div class="tab-pane container fade" id="lolo"></div>
+                  <div class="tab-pane container fade" id="dark">You Don't have level enough to access the black market</div>
+              </div>
+              <div>
+                
               </div>
 
           </div>
@@ -221,6 +257,30 @@
   </div>
 </div>
 <!-- /.modal attack-->
+
+<!--Modal travel-->
+    <div class="modal fade" id="travelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Travel the world</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+                This functionality is under development! Check you fulfill the requierements, to move another Island!!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--button type="button" class="btn btn-primary" id="create_pirate">Create</button-->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.modal travel -->
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -234,6 +294,13 @@
     <script src="js/load-abis.js"></script>
     <script src="js/pirates.js"></script>
     <script src="js/weapons.js"></script>
+    <script src="js/market.js"></script>
+    <script src="js/maps.js"></script>
+    <script src="js/missions.js"></script>
+    <script src="js/jobs.js"></script>
+    <script src="js/treasure.js"></script>
+    <script src="js/bounty.js"></script>
+
 
 <script>
 
@@ -243,12 +310,15 @@
       var myPirate;
       var atack;// event attacks
       $('#create_pirate').click(function(){
+        clean();
+
         createRandomPirate($('#pirate-name').val());
       })
       //profile link
       $('#details').click(function(){
         var data = getPiratesByOwner(userAccount);
-          getProperties()
+          getProperties(displayWeapons)
+          listSkills();
 
       })
       $('#all_pirates').click(function(){
@@ -257,6 +327,52 @@
       $('#attack-pirate').click(function(){
         attack($('#pirate-target').val());
       })
+      $('#marketLink').click(function(){
+        clean()
+
+        marketView();
+      })
+      $('#jobLink').click(function(){
+        clean();
+
+        jobView();
+      })
+
+      $('#mapLink').click(function(){
+        clean();
+
+        mapsView();
+      })
+      $('#missionsLink').click(function(){
+        clean();
+
+        missionsView();
+      })
+      $('#treasureLink').click(function(){
+        clean();
+
+        treasureView();
+      })
+      $('#bountyLink').click(function(){
+        clean();
+
+        bountyView();
+      })
+      
+      
+      function clean(){
+          $("#myDIV").empty();
+          $("#weapons").empty();
+          $("#pirates").empty();
+          $("#market").empty();
+          $("#bounty").empty();
+          $("#treasure").empty();
+          $("#jobs").empty();
+          $("#maps").empty();
+          $("#missions").empty();
+          
+          
+      }
       function makeName() {
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -271,7 +387,7 @@
         $("#pirates").empty();
         $("#myDIV").empty();
         $("#weapons").empty();
-        
+
         for (id of ids) {
           
            getPirateDetails(id,test);

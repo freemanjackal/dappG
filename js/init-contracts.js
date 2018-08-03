@@ -1,8 +1,8 @@
       function startApp() {
         //change contract address
-        var cryptoPiratesAddress = "0x25b4dc3bf4a2e72a8bc6e98f3a4b2ffa7d798960";//"YOUR_CONTRACT_ADDRESS";
-        var unigTAddress = "0x1c7f3e3c94f03ef530c246623aaf3b0a95cce9df";
-        var weaponsAddr = "0xb29cc00b0bd9ed8145e9bf2db470d3c9466201f5";
+        var cryptoPiratesAddress = "0x252be98fac8ed85dc58d404a65e0b154c079caea";//"YOUR_CONTRACT_ADDRESS";
+        var unigTAddress = "0x2629cde2144cba4097824b634856938000d77e1d";
+        var weaponsAddr = "0x500fa70c6a53623193218973f309ec1e36464663";
 
         
         web3js.eth.defaultAccount = web3js.eth.accounts[0];
