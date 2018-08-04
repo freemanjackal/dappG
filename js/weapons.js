@@ -12,10 +12,7 @@
         });
       }
       function displayProps(result, method){
-        $("#weapons").empty();
-        $("#myDIV").html("Your weapons");
         for (id of result) {
-          console.log(method)
            getWeaponsDetails(id, method);
             
         }/*

@@ -316,15 +316,21 @@
       })
       //profile link
       $('#details').click(function(){
+        clean()
+
         var data = getPiratesByOwner(userAccount);
           getProperties(displayWeapons)
           listSkills();
 
       })
       $('#all_pirates').click(function(){
+        clean()
+
         getPirates();
       })
       $('#attack-pirate').click(function(){
+        clean()
+
         attack($('#pirate-target').val());
       })
       $('#marketLink').click(function(){
@@ -370,6 +376,8 @@
           $("#jobs").empty();
           $("#maps").empty();
           $("#missions").empty();
+          $("#lolo").empty();
+          $("#dark").empty();
           
           
       }
@@ -387,6 +395,7 @@
         $("#pirates").empty();
         $("#myDIV").empty();
         $("#weapons").empty();
+        clean();
 
         for (id of ids) {
           
@@ -396,6 +405,7 @@
       }
 
       function selectAccount(account){
+        clean();
         userAccount = web3js.eth.accounts[account];
         getPirate(userAccount);
         getPirates();
@@ -409,6 +419,7 @@
 
 
       function createRandomPirate(name) {
+        clean();
         // This is going to take a while, so update the UI to let the user know
         // the transaction has been sent
         $("#txStatus").text("Creating new pirate on the blockchain. This may take a while...");
